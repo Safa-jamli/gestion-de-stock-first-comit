@@ -1,2 +1,7 @@
-package com.jamli.gestiondestoks.repository;public interface UtilisateurRepository {
+package com.jamli.gestiondestoks.repository;
+
+import com.jamli.gestiondestoks.model.Utilisateur;
+import org.springframework.data.jpa.repository.JpaRepository;
+
+public interface UtilisateurRepository extends JpaRepository<Utilisateur, Integer> {
 }

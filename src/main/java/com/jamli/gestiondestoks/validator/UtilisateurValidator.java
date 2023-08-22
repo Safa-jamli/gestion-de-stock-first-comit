@@ -6,7 +6,7 @@ import org.springframework.util.StringUtils;
 import java.util.ArrayList;
 import java.util.List;
 
-public class UtilisationValidator {
+public class UtilisateurValidator {
     public static List<String> validate(UtilisateurDto utilisateurDto ) {
         List<String> errors = new ArrayList<>();
 
