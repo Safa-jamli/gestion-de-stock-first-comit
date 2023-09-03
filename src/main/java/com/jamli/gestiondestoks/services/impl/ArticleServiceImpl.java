@@ -4,26 +4,24 @@ import com.jamli.gestiondestoks.dto.ArticleDto;
 import com.jamli.gestiondestoks.dto.LigneCommandeClientDto;
 import com.jamli.gestiondestoks.dto.LigneCommandeFournisseurDto;
 import com.jamli.gestiondestoks.dto.LigneVenteDto;
-import com.jamli.gestiondestoks.exeption.EntityNotFoundException;
-import com.jamli.gestiondestoks.exeption.ErrorCodes;
-import com.jamli.gestiondestoks.exeption.InvalidEntityException;
-import com.jamli.gestiondestoks.exeption.InvalidOperationException;
-import com.jamli.gestiondestoks.model.LigneCommandeClient;
-import com.jamli.gestiondestoks.model.LigneCommandeFournisseur;
-import com.jamli.gestiondestoks.model.LigneVente;
+import com.jamli.gestiondestoks.exeption.*;
+import com.jamli.gestiondestoks.model.*;
 import com.jamli.gestiondestoks.repository.*;
 import com.jamli.gestiondestoks.services.srategy.ArticleService;
 import com.jamli.gestiondestoks.validator.ArticleValidator;
+import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
-@Slf4j //POUR LOGIN PAR LUMBOK
+@Slf4j //POUR LOG PAR LUMBOK
+@AllArgsConstructor
 public class ArticleServiceImpl implements ArticleService {
 
     private ArticleRepository articleRepository;
@@ -31,16 +29,6 @@ public class ArticleServiceImpl implements ArticleService {
     private LigneCommandeFournisseurRepository commandeFournisseurRepository;
     private LigneCommandeClientRepository commandeClientRepository;
 
-    @Autowired
-    public ArticleServiceImpl(
-            ArticleRepository articleRepository,
-            LigneVenteRepository venteRepository, LigneCommandeFournisseurRepository commandeFournisseurRepository,
-            LigneCommandeClientRepository commandeClientRepository) {
-        this.articleRepository = articleRepository;
-        this.venteRepository = venteRepository;
-        this.commandeFournisseurRepository = commandeFournisseurRepository;
-        this.commandeClientRepository = commandeClientRepository;
-    }
 
     @Override
     public ArticleDto save(ArticleDto dto) {
@@ -49,6 +37,13 @@ public class ArticleServiceImpl implements ArticleService {
             log.error("Article is not valid {}", dto);
             throw new InvalidEntityException("L'article n'est pas valide", ErrorCodes.ARTICLE_NOT_VALID, errors);
         }
+
+//        Article persistedArticle = ArticleDto.toEntity(dto);
+//        Optional<Category> existedCategory = categoryRepository.findById(dto.getCategory().getId());
+//        if (existedCategory.isEmpty()) {
+//            throw new CategoryNotFoundException("cannot find category !! ");
+//        }
+//        persistedArticle.setCategory(existedCategory.get());
 
         return ArticleDto.fromEntity(
                 articleRepository.save(

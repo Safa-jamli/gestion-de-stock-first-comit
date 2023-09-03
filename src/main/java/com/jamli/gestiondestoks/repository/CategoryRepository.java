@@ -1,6 +1,5 @@
 package com.jamli.gestiondestoks.repository;
 
-import com.jamli.gestiondestoks.dto.CategoryDto;
 import com.jamli.gestiondestoks.model.Category;
 import org.springframework.data.jpa.repository.JpaRepository;
 

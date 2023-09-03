@@ -11,13 +11,6 @@ import springfox.documentation.spring.web.plugins.Docket;
 @SpringBootApplication
 @EnableWebMvc
 public class GestiondestoksApplication {
-    @Bean
-    public Docket api() {
-        return new Docket(DocumentationType.SWAGGER_2)
-                .select()
-                .apis(RequestHandlerSelectors.none())  // Disable Swagger for tests
-                .build();
-    }
     public static void main(String[] args) {
         SpringApplication.run(GestiondestoksApplication.class, args);
     }

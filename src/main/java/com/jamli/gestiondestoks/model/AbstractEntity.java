@@ -1,9 +1,6 @@
 package com.jamli.gestiondestoks.model;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
-import org.springframework.data.annotation.CreatedDate;
-import org.springframework.data.annotation.LastModifiedBy;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import javax.persistence.*;
@@ -18,17 +15,25 @@ import java.time.Instant;
 @EntityListeners(AuditingEntityListener.class)
 public class AbstractEntity implements Serializable {
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id ;
 
-    @CreatedDate
-    @Column(name="creationDate" ,nullable=false)
-    @JsonIgnore //j'ai pas besoin de ces attribue la
+   // @CreatedDate
+    @Column(name="creationDate")
+   //j'ai pas besoin de ces attribue la
     private Instant creationDate;
 
 
-    @Column(name="lastUpdateDate" )
-    @LastModifiedBy
-    @JsonIgnore
-    private Instant lastUpdateDate;
-}
+    @Column(name="lastModifiedDate" )
+    //@LastModifiedBy
+    private Instant LastModifiedDate;
+    @PrePersist
+    void prePersist() {
+        creationDate = Instant.now();
+    }
+    @PreUpdate
+    void preupdate() {
+        LastModifiedDate=Instant.now();
+        }
+    }
+

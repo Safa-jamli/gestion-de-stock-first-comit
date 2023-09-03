@@ -1,13 +1,17 @@
 package com.jamli.gestiondestoks.dto;
 
 import com.jamli.gestiondestoks.model.Article;
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
+import lombok.extern.jackson.Jacksonized;
 
 import java.math.BigDecimal;
-
 @Builder
 @Data
+@AllArgsConstructor
+@NoArgsConstructor
 public class ArticleDto {
     private Integer id;
     private String codeActicle;
@@ -49,6 +53,7 @@ public class ArticleDto {
         article.setTauxTva(articleDto.getTauxTva());
         article.setIdEntreprise(articleDto.getIdEntreprise());
         article.setCategory(CategoryDto.toEntity(articleDto.getCategory()));
+
         return article;
     }
 

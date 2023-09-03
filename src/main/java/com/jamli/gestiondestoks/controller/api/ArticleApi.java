@@ -22,6 +22,8 @@ public interface ArticleApi {
             @ApiResponse(code=400,message = "l'objet article n'est pas valide")
     })
     ArticleDto save( @RequestBody  ArticleDto articleDto);
+
+
     @GetMapping(value =  APP_ROOT +  "/articles/{idArticle}",produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value="chercher un article par ID",notes = "cette methode permet de chercher  un article par son ID",response =ArticleDto.class)
     @ApiResponses(value={
@@ -30,7 +32,7 @@ public interface ArticleApi {
     })
     ArticleDto findById(@PathVariable("idArticle") Integer  id);
 
-    @GetMapping(value =  APP_ROOT +  "/articles/{codeArticle}",produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping(value =  APP_ROOT +  "/articles/code/{codeArticle}",produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value="chercher un article par  CODE",notes = "cette methode permet de chercher  un article par son CODE",response =ArticleDto.class)
     @ApiResponses(value={
             @ApiResponse(code=200,message = "l'article a ete trouver dans la BDD"),
