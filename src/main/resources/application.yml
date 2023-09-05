@@ -8,7 +8,10 @@ spring:
   jpa:
     database: MYSQL
     show-sql: false
-
+    properties:
+     hibernate:
+       session_factory:
+         interceptor: com.jamli.gestiondestoks.interceptor.Interceptor
 
     # Hibernate DDL Auto (create, create-drop, update)
     hibernate:

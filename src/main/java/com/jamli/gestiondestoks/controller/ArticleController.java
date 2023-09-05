@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.transaction.Transactional;
 import java.util.List;
 
 @RestController
@@ -37,7 +38,9 @@ public class ArticleController implements ArticleApi {
 //    }
 
     @Override
+    @Transactional
     public ArticleDto save(ArticleDto articleDto) {
+
         return articleService.save(articleDto) ;
     }
 

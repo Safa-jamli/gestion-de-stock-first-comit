@@ -1,6 +1,9 @@
 package com.jamli.gestiondestoks.model;
 
 import lombok.Data;
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.LastModifiedBy;
+import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import javax.persistence.*;
@@ -18,22 +21,20 @@ public class AbstractEntity implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id ;
 
-   // @CreatedDate
-    @Column(name="creationDate")
-   //j'ai pas besoin de ces attribue la
+    @CreatedDate
+    @Column(name = "creationDate", nullable = false, updatable = false)
     private Instant creationDate;
 
-
-    @Column(name="lastModifiedDate" )
-    //@LastModifiedBy
-    private Instant LastModifiedDate;
-    @PrePersist
-    void prePersist() {
-        creationDate = Instant.now();
-    }
-    @PreUpdate
-    void preupdate() {
-        LastModifiedDate=Instant.now();
-        }
+    @LastModifiedDate
+    @Column(name = "lastModifiedDate")
+    private Instant lastModifiedDate;
+//    @PrePersist
+//    void prePersist() {
+//        creationDate = Instant.now();
+//    }
+//    @PreUpdate
+//    void preupdate() {
+//        LastModifiedDate=Instant.now();
+//        }
     }
 

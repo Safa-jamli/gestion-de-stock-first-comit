@@ -2,14 +2,18 @@ package com.jamli.gestiondestoks.dto;
 
 import com.jamli.gestiondestoks.model.MvtStock;
 import com.jamli.gestiondestoks.model.TypeMvtStk;
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.math.BigDecimal;
 import java.time.Instant;
 
 @Data
 @Builder
+@AllArgsConstructor
+@NoArgsConstructor
 public class MvtStockDto  {
     private Integer id;
     private ArticleDto article;

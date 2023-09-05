@@ -1,8 +1,10 @@
 package com.jamli.gestiondestoks.dto;
 
 import com.jamli.gestiondestoks.model.Utilisateur;
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.time.Instant;
 import java.util.List;
@@ -10,6 +12,8 @@ import java.util.stream.Collectors;
 
 @Data
 @Builder
+@AllArgsConstructor
+@NoArgsConstructor
 public class UtilisateurDto {
     private Integer id;
     private String nom;

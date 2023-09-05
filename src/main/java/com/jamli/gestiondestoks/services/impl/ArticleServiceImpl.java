@@ -15,6 +15,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
+import javax.transaction.Transactional;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -28,9 +29,13 @@ public class ArticleServiceImpl implements ArticleService {
     private LigneVenteRepository venteRepository;
     private LigneCommandeFournisseurRepository commandeFournisseurRepository;
     private LigneCommandeClientRepository commandeClientRepository;
+    @Autowired
+    private CategoryRepository categoryRepository;
+
 
 
     @Override
+    @Transactional
     public ArticleDto save(ArticleDto dto) {
         List<String> errors = ArticleValidator.validate(dto);
         if (!errors.isEmpty()) {
@@ -38,12 +43,12 @@ public class ArticleServiceImpl implements ArticleService {
             throw new InvalidEntityException("L'article n'est pas valide", ErrorCodes.ARTICLE_NOT_VALID, errors);
         }
 
-//        Article persistedArticle = ArticleDto.toEntity(dto);
-//        Optional<Category> existedCategory = categoryRepository.findById(dto.getCategory().getId());
-//        if (existedCategory.isEmpty()) {
+//       Article persistedArticle = ArticleDto.toEntity(dto);
+//       Optional<Category> existedCategory = categoryRepository.findById(dto.getCategory().getId());
+//      if (existedCategory.isEmpty()) {
 //            throw new CategoryNotFoundException("cannot find category !! ");
-//        }
-//        persistedArticle.setCategory(existedCategory.get());
+//       }
+//       persistedArticle.setCategory(existedCategory.get());
 
         return ArticleDto.fromEntity(
                 articleRepository.save(

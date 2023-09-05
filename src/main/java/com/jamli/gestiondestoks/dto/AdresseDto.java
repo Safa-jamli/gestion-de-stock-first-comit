@@ -1,11 +1,15 @@
 package com.jamli.gestiondestoks.dto;
 
 import com.jamli.gestiondestoks.model.Adresse;
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Data
 @Builder
+@AllArgsConstructor
+@NoArgsConstructor
 public class AdresseDto  {
     private String adresse1;
     private String adresse2;

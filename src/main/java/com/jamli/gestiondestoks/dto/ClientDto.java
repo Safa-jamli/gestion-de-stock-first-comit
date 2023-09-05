@@ -3,13 +3,17 @@ package com.jamli.gestiondestoks.dto;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.jamli.gestiondestoks.model.Adresse;
 import com.jamli.gestiondestoks.model.Client;
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.util.List;
 
 @Data
 @Builder
+@AllArgsConstructor
+@NoArgsConstructor
 public class ClientDto {
     private Integer id;
     private String nom;

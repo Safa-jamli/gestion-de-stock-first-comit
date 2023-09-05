@@ -2,11 +2,15 @@ package com.jamli.gestiondestoks.dto;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.jamli.gestiondestoks.model.Roles;
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Data
 @Builder
+@AllArgsConstructor
+@NoArgsConstructor
 public class RolesDto {
     private Integer id;
     private String roleName;
