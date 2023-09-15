@@ -2,7 +2,9 @@ package com.jamli.gestiondestoks.controller;
 
 import com.jamli.gestiondestoks.dto.auth.AuthenticationRequest;
 import com.jamli.gestiondestoks.dto.auth.AuthenticationResponse;
+import com.jamli.gestiondestoks.model.Utilisateur;
 import com.jamli.gestiondestoks.model.auth.ExtendedUser;
+import com.jamli.gestiondestoks.repository.UtilisateurRepository;
 import com.jamli.gestiondestoks.services.auth.ApplicationUserDetailsService;
 import com.jamli.gestiondestoks.utils.JwtUtil;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,11 +30,15 @@ public class AthenticationController {
 
     @Autowired
     private JwtUtil jwtUtil;
-
+    @Autowired
+    UtilisateurRepository utilisateurRepository;
 
     //authen l'utisateur
     @PostMapping("/authenticate")
     public ResponseEntity<AuthenticationResponse> authenticate(@RequestBody AuthenticationRequest request){
+        System.out.println(request.getPassword());
+        Utilisateur utilisateur = utilisateurRepository.findByEmailAndMoteDePasse(request.getLogin(), request.getPassword());
+        System.out.println("usseeeeeeeeeeeeeeeer           : "+utilisateur.toString());
          authenticationManager.authenticate(
                  new UsernamePasswordAuthenticationToken(
                          request.getLogin(),
@@ -40,6 +46,7 @@ public class AthenticationController {
 
                  )
          );
+
         final UserDetails userDetails = userDetailsService.loadUserByUsername(request.getLogin());
         final String jwt = jwtUtil.generateToken((ExtendedUser) userDetails);
         return ResponseEntity.ok(AuthenticationResponse.builder().accesstoken(jwt).build());

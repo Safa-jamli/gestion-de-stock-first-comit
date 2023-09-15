@@ -4,6 +4,7 @@ import com.jamli.gestiondestoks.dto.UtilisateurDto;
 import com.jamli.gestiondestoks.exeption.EntityNotFoundException;
 import com.jamli.gestiondestoks.exeption.ErrorCodes;
 import com.jamli.gestiondestoks.exeption.InvalidEntityException;
+import com.jamli.gestiondestoks.model.Utilisateur;
 import com.jamli.gestiondestoks.repository.UtilisateurRepository;
 import com.jamli.gestiondestoks.services.srategy.UtilisateurService;
 import com.jamli.gestiondestoks.validator.UtilisateurValidator;
@@ -74,11 +75,20 @@ public class UtilisateurServiceImpl implements UtilisateurService {
 
     @Override
     public UtilisateurDto findByEmail(String email) {
-        return utilisateurRepository.findUtilisateurByEmail(email)
+        System.out.println("email     : "+email);
+        try{
+            Utilisateur utilisateur = utilisateurRepository.findByEmail(email).get();
+            log.info("userrrrrrrrrrrr issssssssssssss             ",utilisateur.getEmail());
+
+        }catch (Exception e){
+            e.getStackTrace();
+        }
+
+        return utilisateurRepository.findByEmail(email)
                 .map(UtilisateurDto::fromEntity)
                 .orElseThrow(() -> new EntityNotFoundException(
                         "Aucun utilisateur avec l'email = " + email + " n' ete trouve dans la BDD",
                         ErrorCodes.UTILISATEUR_NOT_FOUND)
                 );
-    }
-}
+
+    }}

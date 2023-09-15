@@ -27,8 +27,10 @@ public class ApplicationUserDetailsService implements UserDetailsService {
     //recuperer utilisateur avec roles
     @Override
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
+        System.out.println("wselett");
+        System.out.println(email);
         UtilisateurDto utilisateur = service.findByEmail(email);
-
+        System.out.println("tawa t£jkhj");
         List<SimpleGrantedAuthority> authorities = new ArrayList<>();
         utilisateur.getRoles().forEach(role -> authorities.add(new SimpleGrantedAuthority(role.getRoleName())));
 

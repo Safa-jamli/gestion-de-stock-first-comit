@@ -73,7 +73,7 @@ public class EntrepriseServiceImpl implements EntrepriseService {
     }
 
     private String generateRandomPassword() {
-        return "som3R@nd0mP@$$word";
+        return "saf19@nd0mP@$$word";
     }
 
     @Override

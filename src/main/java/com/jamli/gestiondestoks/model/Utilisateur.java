@@ -1,9 +1,6 @@
 package com.jamli.gestiondestoks.model;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.*;
 import java.time.Instant;
@@ -15,6 +12,7 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
+@ToString
 @Table(name= "utilisateur")
 public class Utilisateur extends  AbstractEntity{
     @Column(name = "nom")
