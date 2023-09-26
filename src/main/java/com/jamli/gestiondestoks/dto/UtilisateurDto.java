@@ -19,7 +19,7 @@ public class UtilisateurDto {
     private String nom;
     private String prenom;
     private String email;
-    private Instant dateDeNaissance;
+    private String dateDeNaissance;
     private String moteDePasse;
     private AdresseDto adresse;
     private String photo;

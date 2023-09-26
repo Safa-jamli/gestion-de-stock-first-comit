@@ -47,11 +47,11 @@ public class EntrepriseServiceImpl implements EntrepriseService {
 
         UtilisateurDto utilisateur = fromEntreprise(savedEntreprise);
 
-        UtilisateurDto savedUser = utilisateurService.save(utilisateur);
+      //  UtilisateurDto savedUser = utilisateurService.save(utilisateur);
 
         RolesDto rolesDto = RolesDto.builder()
                 .roleName("ADMIN")
-                .utilisateur(savedUser)
+                .utilisateur(utilisateur)
                 .build();
 
         rolesRepository.save(RolesDto.toEntity(rolesDto));
@@ -67,7 +67,7 @@ public class EntrepriseServiceImpl implements EntrepriseService {
                 .email(dto.getEmail())
                 .moteDePasse(generateRandomPassword())
                 .entreprise(dto)
-                .dateDeNaissance(Instant.now())
+                .dateDeNaissance(String.valueOf(Instant.now()))
                 .photo(dto.getPhoto())
                 .build();
     }

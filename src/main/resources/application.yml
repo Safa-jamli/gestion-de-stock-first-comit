@@ -7,7 +7,7 @@ spring:
   ## Specify DBMS
   jpa:
     database: MYSQL
-    show-sql: true
+    show-sql: false
 #    properties:
 #     hibernate:
 #       session_factory:

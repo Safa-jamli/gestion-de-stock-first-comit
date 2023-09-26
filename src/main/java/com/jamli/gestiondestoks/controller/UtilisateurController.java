@@ -1,7 +1,9 @@
 package com.jamli.gestiondestoks.controller;
 
 import com.jamli.gestiondestoks.controller.api.UtilisateurApi;
+import com.jamli.gestiondestoks.dto.UserDtoForCreate;
 import com.jamli.gestiondestoks.dto.UtilisateurDto;
+import com.jamli.gestiondestoks.model.Utilisateur;
 import com.jamli.gestiondestoks.services.srategy.UtilisateurService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RestController;
@@ -19,7 +21,7 @@ public class UtilisateurController implements UtilisateurApi {
     }
 
     @Override
-    public UtilisateurDto save(UtilisateurDto dto) {
+    public Utilisateur save(UserDtoForCreate dto) {
 
         return  utilisateurService.save(dto);
     }

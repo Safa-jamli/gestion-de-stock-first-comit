@@ -6,14 +6,13 @@ import javax.persistence.*;
 import java.time.Instant;
 import java.util.List;
 
-@EqualsAndHashCode(callSuper = true)
-@Data
-
+@Getter
+ @Setter
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@ToString
 @Table(name= "utilisateur")
+@ToString
 public class Utilisateur extends  AbstractEntity{
     @Column(name = "nom")
     private String nom;
@@ -25,7 +24,7 @@ public class Utilisateur extends  AbstractEntity{
     private String email;
 
     @Column(name = "datedenaissance")
-    private Instant dateDeNaissance;
+    private String dateDeNaissance;
 
     @Column(name = "motdepasse")
     private String moteDePasse;
@@ -40,7 +39,7 @@ public class Utilisateur extends  AbstractEntity{
     @JoinColumn(name = "identreprise")
     private Entreprise entreprise;
 
-    @OneToMany
+    @OneToMany(fetch = FetchType.EAGER)
     private List<Roles> roles;
 
 

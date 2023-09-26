@@ -22,21 +22,26 @@ import java.util.Optional;
 
 @Service
 public class ApplicationUserDetailsService implements UserDetailsService {
-    @Autowired
-    private UtilisateurService service;
+/*    @Autowired
+    private UtilisateurService service;*/
     //recuperer utilisateur avec roles
+
+    UtilisateurRepository utilisateurRepository;
+
+    public ApplicationUserDetailsService(UtilisateurRepository utilisateurRepository) {
+        this.utilisateurRepository = utilisateurRepository;
+    }
+
     @Override
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
-        System.out.println("wselett");
-        System.out.println(email);
-        UtilisateurDto utilisateur = service.findByEmail(email);
-        System.out.println("tawa t£jkhj");
+        Utilisateur utilisateur = utilisateurRepository.findByEmail(email).orElse(null);
+
+        // UtilisateurDto utilisateur = service.findByEmail(email);
         List<SimpleGrantedAuthority> authorities = new ArrayList<>();
-        utilisateur.getRoles().forEach(role -> authorities.add(new SimpleGrantedAuthority(role.getRoleName())));
-
-
-
-
+        utilisateur.getRoles().forEach(role -> {
+            authorities.add(new SimpleGrantedAuthority("ROLE_"+role.getRoleName()));
+        });
         return new ExtendedUser(utilisateur.getEmail(), utilisateur.getMoteDePasse(), utilisateur.getEntreprise().getId(), authorities);
     }
+
 }

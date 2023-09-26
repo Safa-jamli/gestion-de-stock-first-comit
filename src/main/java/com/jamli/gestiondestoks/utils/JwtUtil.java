@@ -1,5 +1,6 @@
 package com.jamli.gestiondestoks.utils;
 
+import com.jamli.gestiondestoks.model.Utilisateur;
 import com.jamli.gestiondestoks.model.auth.ExtendedUser;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
@@ -43,18 +44,18 @@ public class JwtUtil {
         return extractExpiration(token).before(new Date());
     }
 
-    public String generateToken(ExtendedUser userDetails) {
+    public String generateToken(Utilisateur userDetails) {
         Map<String, Object> claims = new HashMap<>();
         return createToken(claims, userDetails);
     }
 
-    private String createToken(Map<String, Object> claims, ExtendedUser userDetails) {
+    private String createToken(Map<String, Object> claims, Utilisateur userDetails) {
 
         return Jwts.builder().setClaims(claims)
-                .setSubject(userDetails.getUsername())
+                .setSubject(userDetails.getEmail())
                 .setIssuedAt(new Date(System.currentTimeMillis()))
                 .setExpiration(new Date(System.currentTimeMillis() + 1000 * 60 * 60 * 10))
-                .claim("idEntreprise", userDetails.getIdEntreprise().toString())
+                .claim("idEntreprise", userDetails.getEntreprise().getId().toString())
                 .signWith(SignatureAlgorithm.HS256, SECRET_KEY).compact();
     }
 

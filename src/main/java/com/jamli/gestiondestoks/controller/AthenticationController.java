@@ -12,6 +12,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -32,23 +34,18 @@ public class AthenticationController {
     private JwtUtil jwtUtil;
     @Autowired
     UtilisateurRepository utilisateurRepository;
-
+    @Autowired
+    PasswordEncoder passwordEncoder;
     //authen l'utisateur
     @PostMapping("/authenticate")
     public ResponseEntity<AuthenticationResponse> authenticate(@RequestBody AuthenticationRequest request){
-        System.out.println(request.getPassword());
-        Utilisateur utilisateur = utilisateurRepository.findByEmailAndMoteDePasse(request.getLogin(), request.getPassword());
-        System.out.println("usseeeeeeeeeeeeeeeer           : "+utilisateur.toString());
-         authenticationManager.authenticate(
-                 new UsernamePasswordAuthenticationToken(
-                         request.getLogin(),
-                         request.getPassword()
-
-                 )
-         );
-
-        final UserDetails userDetails = userDetailsService.loadUserByUsername(request.getLogin());
-        final String jwt = jwtUtil.generateToken((ExtendedUser) userDetails);
+        Utilisateur utilisateur = utilisateurRepository.findByEmail(request.getLogin()).orElseThrow(()-> new UsernameNotFoundException("LONG NOT EXIST"));
+        Boolean aBoolean=    passwordEncoder.matches(request.getPassword(), utilisateur.getMoteDePasse());
+        if (!aBoolean) throw new RuntimeException();
+        authenticationManager.authenticate(
+                new UsernamePasswordAuthenticationToken(request.getLogin(),request.getPassword()));
+        // final UserDetails userDetails = userDetailsService.loadUserByUsername(request.getLogin());
+        final String jwt = jwtUtil.generateToken(utilisateur);
         return ResponseEntity.ok(AuthenticationResponse.builder().accesstoken(jwt).build());
 
     }

@@ -15,4 +15,6 @@ public interface UtilisateurRepository extends JpaRepository<Utilisateur, Intege
 
     @Query(nativeQuery = true , value = "SELECT * FROM utilisateur WHERE email= :email and motdepasse= :passwd")
     Utilisateur findByEmailAndMoteDePasse(@Param("email") String email,@Param("passwd") String passwd);
+
+
 }
